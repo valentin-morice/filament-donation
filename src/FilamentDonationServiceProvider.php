@@ -2,18 +2,19 @@
 
 namespace ValentinMorice\FilamentDonation;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Route;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use ValentinMorice\FilamentDonation\Commands\FilamentDonationCommand;
+use ValentinMorice\FilamentDonation\Http\Middleware\EnsureStripeWebhookIsValid;
 use ValentinMorice\FilamentDonation\Testing\TestsFilamentDonation;
 
 class FilamentDonationServiceProvider extends PackageServiceProvider
@@ -60,6 +61,11 @@ class FilamentDonationServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
+        Route::prefix('filament-donation')->group(function () {
+            Route::get('/stripe/webhooks', function () {
+                return 'Hello World!';
+            })->middleware(EnsureStripeWebhookIsValid::class);
+        });
     }
 
     public function packageBooted(): void
@@ -122,14 +128,6 @@ class FilamentDonationServiceProvider extends PackageServiceProvider
      * @return array<string>
      */
     protected function getIcons(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getRoutes(): array
     {
         return [];
     }

@@ -4,7 +4,6 @@ namespace ValentinMorice\FilamentDonation;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use ValentinMorice\FilamentDonation\Actions\GetSortedCountryAction;
 use ValentinMorice\FilamentDonation\Resources\DonorResource;
 use ValentinMorice\FilamentDonation\Resources\PaymentResource;
 use ValentinMorice\FilamentDonation\Resources\SubscriptionResource;
@@ -24,10 +23,6 @@ class FilamentDonationPlugin implements Plugin
                 PaymentResource::class,
                 SubscriptionResource::class,
             ]);
-
-        \Illuminate\Support\Facades\Route::get('/test1', function (GetSortedCountryAction $action) {
-            return $action->handle();
-        });
     }
 
     public function boot(Panel $panel): void
