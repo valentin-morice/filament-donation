@@ -17,6 +17,12 @@ You can install the package via composer:
 composer require valentin-morice/filament-donation
 ```
 
+You can publish the config file with:
+
+```bash
+php artisan vendor:publish --tag="filament-donation-config"
+```
+
 You can publish and run the migrations with:
 
 ```bash

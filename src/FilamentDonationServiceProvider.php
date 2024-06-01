@@ -14,6 +14,7 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use ValentinMorice\FilamentDonation\Commands\FilamentDonationCommand;
+use ValentinMorice\FilamentDonation\Http\Controllers\StripeController;
 use ValentinMorice\FilamentDonation\Http\Middleware\EnsureStripeWebhookIsValid;
 use ValentinMorice\FilamentDonation\Testing\TestsFilamentDonation;
 
@@ -62,9 +63,8 @@ class FilamentDonationServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         Route::prefix('filament-donation')->group(function () {
-            Route::get('/stripe/webhooks', function () {
-                return 'Hello World!';
-            })->middleware(EnsureStripeWebhookIsValid::class);
+            Route::post('/stripe/webhooks', [StripeController::class, 'hello_world'])
+                ->middleware(EnsureStripeWebhookIsValid::class);
         });
     }
 

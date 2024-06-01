@@ -9,7 +9,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
-use ValentinMorice\FilamentDonation\Actions\GetSortedCurrencyAction;
+use ValentinMorice\FilamentDonation\Actions\Utils\GetSortedCurrencyAction;
 use ValentinMorice\FilamentDonation\Enums\PaymentStatusEnum;
 use ValentinMorice\FilamentDonation\Models\Donor;
 use ValentinMorice\FilamentDonation\Models\Payment;

@@ -5,6 +5,8 @@ namespace ValentinMorice\FilamentDonation\Http\Middleware;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
+use Stripe\Exception\SignatureVerificationException;
+use Stripe\Webhook;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureStripeWebhookIsValid
@@ -19,17 +21,17 @@ class EnsureStripeWebhookIsValid
     public function handle(Request $request, Closure $next): Response
     {
         if (! $request->header('Stripe-Signature')) {
-            return \response('Error verifying webhook signature.', 400);
+            return \response('Error verifying webhook signature', 400);
         }
 
         try {
-            \Stripe\Webhook::constructEvent(
+            Webhook::constructEvent(
                 $request->getContent(),
                 $request->header('Stripe-Signature'),
-                'STRIPE_WEBHOOK_SECRET' // TODO: Query secret
+                config('filament-donation.stripe.webhook_secret'),
             );
-        } catch (\Stripe\Exception\SignatureVerificationException $e) {
-            return \response('Error verifying webhook signature.', 400);
+        } catch (SignatureVerificationException $e) {
+            return \response('Error verifying webhook signature', 400);
         }
 
         return $next($request);

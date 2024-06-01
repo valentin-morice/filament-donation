@@ -7,7 +7,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
-use ValentinMorice\FilamentDonation\Actions\GetSortedCurrencyAction;
+use ValentinMorice\FilamentDonation\Actions\Utils\GetSortedCurrencyAction;
 use ValentinMorice\FilamentDonation\Enums\SubscriptionStatusEnum;
 use ValentinMorice\FilamentDonation\Models\Donor;
 use ValentinMorice\FilamentDonation\Models\Subscription;

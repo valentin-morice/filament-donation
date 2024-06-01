@@ -7,8 +7,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use ValentinMorice\FilamentDonation\Actions\GetSortedCountryAction;
-use ValentinMorice\FilamentDonation\Actions\GetSortedPhoneCodeAction;
+use ValentinMorice\FilamentDonation\Actions\Utils\GetSortedCountryAction;
+use ValentinMorice\FilamentDonation\Actions\Utils\GetSortedPhoneCodeAction;
 use ValentinMorice\FilamentDonation\Models\Donor;
 use ValentinMorice\FilamentDonation\Resources\DonorResource\Pages;
 

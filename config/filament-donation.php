@@ -3,7 +3,7 @@
 return [
 
     /**
-     * Store your Stripe credentials here
+     * Reference your Stripe credentials here.
      */
     'stripe' => [
         'webhook_secret' => env('FD_STRIPE_WEBHOOK_SECRET'),
