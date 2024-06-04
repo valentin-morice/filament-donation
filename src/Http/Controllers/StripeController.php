@@ -32,6 +32,7 @@ class StripeController
                         ],
                     ]
                 );
+
                 return response('Invoice processed successfully', 200);
             default:
                 return response('Default', 200);
