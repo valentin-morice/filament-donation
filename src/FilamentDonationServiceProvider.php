@@ -8,11 +8,15 @@ use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Stripe\StripeClient;
+use ValentinMorice\FilamentDonation\Actions\Stripe\CreatePaymentAction;
+use ValentinMorice\FilamentDonation\Actions\Stripe\CreateSubscriptionAction;
 use ValentinMorice\FilamentDonation\Commands\FilamentDonationCommand;
 use ValentinMorice\FilamentDonation\Http\Controllers\StripeController;
 use ValentinMorice\FilamentDonation\Http\Middleware\EnsureStripeWebhookIsValid;
@@ -63,7 +67,7 @@ class FilamentDonationServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         Route::prefix('filament-donation')->group(function () {
-            Route::post('/stripe/webhooks', [StripeController::class, 'hello_world'])
+            Route::post('/stripe/webhooks', [StripeController::class, 'index'])
                 ->middleware(EnsureStripeWebhookIsValid::class);
         });
     }
@@ -95,6 +99,11 @@ class FilamentDonationServiceProvider extends PackageServiceProvider
 
         // Testing
         Testable::mixin(new TestsFilamentDonation());
+
+        // Instantiate Stripe Client
+        $this->app->singleton(StripeClient::class, function () {
+            return new StripeClient(config('filament-donation.stripe.secret_key'));
+        });
     }
 
     protected function getAssetPackageName(): ?string
